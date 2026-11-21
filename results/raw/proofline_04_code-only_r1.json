@@ -1,0 +1,143 @@
+{
+  "provider": "proofline",
+  "case_id": "04",
+  "condition": "code-only",
+  "run_id": "r1",
+  "repo": "hasansyed-proofline/bench-proofline",
+  "pr_number": 5,
+  "pr_url": "https://github.com/hasansyed-proofline/bench-proofline/pull/5",
+  "base_sha": "9b5ac64ab0d3ba414c5edec1e64fcdf8b3b19a1a",
+  "head_sha": "420baea889887b127f1c87d99f728e40f7664996",
+  "opened_at": "2026-11-21T13:47:56Z",
+  "bot": "prooflinedev[bot]",
+  "trigger": "auto-pr",
+  "notes": "Free 1-month org tier, default settings, installed only on bench-proofline",
+  "collected_at": "2026-11-21T13:49:56Z",
+  "status": "completed",
+  "check_runs": [
+    {
+      "name": "Proofline",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "reviews": [
+    {
+      "id": 6005651863,
+      "node_id": "PRR_kwDOV2ojus8AAAABZfb5lw",
+      "user": {
+        "login": "prooflinedev[bot]",
+        "id": 318282779,
+        "node_id": "BOT_kgDOEvicGw",
+        "avatar_url": "https://avatars.githubusercontent.com/in/4636559?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/prooflinedev%5Bbot%5D",
+        "html_url": "https://github.com/apps/prooflinedev",
+        "followers_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/followers",
+        "following_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/following{/other_user}",
+        "gists_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/subscriptions",
+        "organizations_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/orgs",
+        "repos_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/repos",
+        "events_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/received_events",
+        "type": "Bot",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "<!-- proofline:review-comment -->\n<!-- proofline:review-publication:7e3640f9-913f-4385-8e05-95fdf8d58260 -->\n**Proofline** has 1 new finding to review.\n\n[View full review in Proofline](https://proofline.sh/orgs/by-id/01a1fe4f-49f1-7732-81cb-f1d6ad806605/reviews/01a1fe5d-1f35-7765-bfe1-edc3dbfb0630)\n\n<!-- proofline:published-findings -->\n<!-- proofline:published-finding-series=01a1fe5e-943c-7475-8f73-1c836a213921 -->\n<!-- proofline:published-thread-series=01a1fe5e-943c-7475-8f73-1c836a213921 -->\n<!-- /proofline:published-findings -->\n<!-- proofline:published-code=01a1fe5e-9440-7145-bb7f-1083221c2e57 -->\n<!-- proofline:published-code-thread=01a1fe5e-9440-7145-bb7f-1083221c2e57 -->",
+      "state": "COMMENTED",
+      "html_url": "https://github.com/hasansyed-proofline/bench-proofline/pull/5#pullrequestreview-6005651863",
+      "pull_request_url": "https://api.github.com/repos/hasansyed-proofline/bench-proofline/pulls/5",
+      "author_association": "NONE",
+      "is_copilot_code_review": false,
+      "copilot_code_review_effort": null,
+      "_links": {
+        "html": {
+          "href": "https://github.com/hasansyed-proofline/bench-proofline/pull/5#pullrequestreview-6005651863"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/hasansyed-proofline/bench-proofline/pulls/5"
+        }
+      },
+      "submitted_at": "2026-11-21T13:49:36Z",
+      "commit_id": "420baea889887b127f1c87d99f728e40f7664996"
+    }
+  ],
+  "inline_comments": [
+    {
+      "url": "https://api.github.com/repos/hasansyed-proofline/bench-proofline/pulls/comments/4652842885",
+      "pull_request_review_id": 6005651863,
+      "id": 4652842885,
+      "node_id": "PRRC_kwDOV2ojus8AAAABFVS_hQ",
+      "diff_hunk": "@@ -0,0 +1 @@\n+ALTER TABLE deliveries DROP COLUMN legacy_format;",
+      "path": "migrations/002_retire_format.sql",
+      "commit_id": "420baea889887b127f1c87d99f728e40f7664996",
+      "original_commit_id": "420baea889887b127f1c87d99f728e40f7664996",
+      "user": {
+        "login": "prooflinedev[bot]",
+        "id": 318282779,
+        "node_id": "BOT_kgDOEvicGw",
+        "avatar_url": "https://avatars.githubusercontent.com/in/4636559?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/prooflinedev%5Bbot%5D",
+        "html_url": "https://github.com/apps/prooflinedev",
+        "followers_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/followers",
+        "following_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/following{/other_user}",
+        "gists_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/subscriptions",
+        "organizations_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/orgs",
+        "repos_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/repos",
+        "events_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/received_events",
+        "type": "Bot",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "<!-- proofline:finding-series=01a1fe5e-943c-7475-8f73-1c836a213921 -->\n**Warning** \u00b7 Concurrent console startups can abort during migration 002\n\nTwo consoles can read `user_version = 1` before either commits. The second then runs migration `002` using the stale version and tries to drop `legacy_format` again.\n\nSQLite rejects the second drop, so that console exits before dispatching its command.\n\nAcquire a write transaction before reading `user_version` and apply pending migrations without releasing that lock.\n\n<details>\n<summary>Details</summary>\n\nThe unlocked version read predates this change, but the failing drop on a version-1 database is new. Ensure the migration executor does not implicitly commit the transaction before running the SQL.\n\n</details>\n\n[View finding in Proofline](https://proofline.sh/orgs/by-id/01a1fe4f-49f1-7732-81cb-f1d6ad806605/reviews/01a1fe5d-1f35-7765-bfe1-edc3dbfb0630/findings/01a1fe5e-9440-7145-bb7f-1083221c2e57)\n\nAlso at:\n- [`console.py`](https://github.com/hasansyed-proofline/bench-proofline/blob/420baea889887b127f1c87d99f728e40f7664996/console.py#L29-L43) lines 29 to 43",
+      "created_at": "2026-11-21T13:49:36Z",
+      "updated_at": "2026-11-21T13:49:36Z",
+      "html_url": "https://github.com/hasansyed-proofline/bench-proofline/pull/5#discussion_r4652842885",
+      "pull_request_url": "https://api.github.com/repos/hasansyed-proofline/bench-proofline/pulls/5",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/hasansyed-proofline/bench-proofline/pulls/comments/4652842885"
+        },
+        "html": {
+          "href": "https://github.com/hasansyed-proofline/bench-proofline/pull/5#discussion_r4652842885"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/hasansyed-proofline/bench-proofline/pulls/5"
+        }
+      },
+      "reactions": {
+        "url": "https://api.github.com/repos/hasansyed-proofline/bench-proofline/pulls/comments/4652842885/reactions",
+        "total_count": 0,
+        "+1": 0,
+        "-1": 0,
+        "laugh": 0,
+        "hooray": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0
+      },
+      "start_line": null,
+      "original_start_line": null,
+      "start_side": null,
+      "line": 1,
+      "original_line": 1,
+      "side": "RIGHT",
+      "author_association": "NONE",
+      "original_position": 1,
+      "position": 1,
+      "subject_type": "line",
+      "is_copilot_code_review": false,
+      "copilot_code_review_severity": null,
+      "copilot_code_review_sources": []
+    }
+  ],
+  "issue_comments": []
+}

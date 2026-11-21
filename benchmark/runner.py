@@ -65,24 +65,41 @@ def read_case(case_id, condition):
     return title, body
 
 
-def fetch_bot_feedback(repo, pr_num, me):
-    def is_other(item):
+def fetch_bot_feedback(repo, pr_num, head_sha, bot_login, check_app):
+    def is_target_bot(item):
         login = (item.get("user") or {}).get("login", "")
-        return login and login.lower() != me.lower()
+        return login.lower() == bot_login.lower()
 
-    reviews = [r for r in gh_api(f"repos/{repo}/pulls/{pr_num}/reviews") if is_other(r)]
-    inline = [c for c in gh_api(f"repos/{repo}/pulls/{pr_num}/comments") if is_other(c)]
-    comments = [c for c in gh_api(f"repos/{repo}/issues/{pr_num}/comments") if is_other(c)]
-    return reviews, inline, comments
+    reviews = [r for r in gh_api(f"repos/{repo}/pulls/{pr_num}/reviews") if is_target_bot(r)]
+    inline = [c for c in gh_api(f"repos/{repo}/pulls/{pr_num}/comments") if is_target_bot(c)]
+    comments = [c for c in gh_api(f"repos/{repo}/issues/{pr_num}/comments") if is_target_bot(c)]
+
+    checks = []
+    if check_app:
+        data = gh_api(f"repos/{repo}/commits/{head_sha}/check-runs")
+        checks = [
+            c for c in data.get("check_runs", [])
+            if (c.get("app") or {}).get("slug", "").lower() == check_app.lower()
+        ]
+    return reviews, inline, comments, checks
 
 
-def check_status(reviews, inline, comments, timed_out):
+def check_status(reviews, inline, comments, checks, check_app, timed_out):
     text = "\n".join(
         (x.get("body") or "") for x in (reviews + inline + comments)
     ).lower()
     if any(w in text for w in QUOTA_WORDS):
         return "quota_stop"
-    if reviews or inline or comments:
+
+    has_feedback = bool(reviews or inline or comments)
+
+    if check_app:
+        check_done = bool(checks) and all(c.get("status") == "completed" for c in checks)
+        if check_done:
+            return "completed" if has_feedback else "quiet"
+        return "timeout" if timed_out else "pending"
+
+    if reviews or inline:
         return "completed"
     return "timeout" if timed_out else "pending"
 
@@ -91,7 +108,8 @@ def run_cases(provider_name, cases, condition, run_id, timeout, collect_only):
     providers = load_json(PROVIDERS_PATH, {})
     cfg = providers[provider_name]
     repo = cfg["repo"]
-    me = run(["gh", "api", "user", "--jq", ".login"])
+    bot_login = cfg["bot"]
+    check_app = cfg.get("check_app")
     base_sha = run(["git", "rev-parse", "upstream/pilot/base"])
     state = load_json(STATE_PATH, {})
 
@@ -101,8 +119,8 @@ def run_cases(provider_name, cases, condition, run_id, timeout, collect_only):
 
         if not collect_only and out_file.exists():
             prev = load_json(out_file, {})
-            if prev.get("status") == "completed":
-                print(f"skip {key} (already completed)")
+            if prev.get("status") in ("completed", "quiet"):
+                print(f"skip {key} (already {prev['status']})")
                 continue
 
         head_sha = run(["git", "rev-parse", f"upstream/pilot/{case_id}"])
@@ -148,21 +166,32 @@ def run_cases(provider_name, cases, condition, run_id, timeout, collect_only):
 
         deadline = time.time() + (0 if collect_only else timeout)
         while True:
-            reviews, inline, comments = fetch_bot_feedback(repo, entry["pr_number"], me)
-            status = check_status(reviews, inline, comments, timed_out=(time.time() >= deadline))
+            reviews, inline, comments, checks = fetch_bot_feedback(
+                repo, entry["pr_number"], entry["head_sha"], bot_login, check_app
+            )
+            status = check_status(
+                reviews, inline, comments, checks, check_app, timed_out=(time.time() >= deadline)
+            )
             if status != "pending":
-                if status == "completed" and not collect_only:
-                    time.sleep(20)
-                    reviews, inline, comments = fetch_bot_feedback(repo, entry["pr_number"], me)
+                if status in ("completed", "quiet") and not collect_only:
+                    time.sleep(10)
+                    reviews, inline, comments, checks = fetch_bot_feedback(
+                        repo, entry["pr_number"], entry["head_sha"], bot_login, check_app
+                    )
                 break
             time.sleep(15)
 
         record = {
             **entry,
+            "bot": bot_login,
             "trigger": cfg["trigger"],
             "notes": cfg["notes"],
             "collected_at": now_utc(),
             "status": status,
+            "check_runs": [
+                {"name": c.get("name"), "status": c.get("status"), "conclusion": c.get("conclusion")}
+                for c in checks
+            ],
             "reviews": reviews,
             "inline_comments": inline,
             "issue_comments": comments,

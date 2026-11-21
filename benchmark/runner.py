@@ -65,7 +65,7 @@ def read_case(case_id, condition):
     return title, body
 
 
-def fetch_bot_feedback(repo, pr_num, head_sha, bot_login, check_app):
+def fetch_bot_feedback(repo, pr_num, head_sha, bot_login, check_app, opened_at=""):
     def is_target_bot(item):
         login = (item.get("user") or {}).get("login", "")
         return login.lower() == bot_login.lower()
@@ -79,7 +79,7 @@ def fetch_bot_feedback(repo, pr_num, head_sha, bot_login, check_app):
         data = gh_api(f"repos/{repo}/commits/{head_sha}/check-runs")
         checks = [
             c for c in data.get("check_runs", [])
-            if (c.get("app") or {}).get("slug", "").lower() == check_app.lower()
+            if (c.get("app") or {}).get("slug", "").lower() == check_app.lower() and (c.get("started_at") or "") >= opened_at
         ]
     return reviews, inline, comments, checks
 
@@ -133,6 +133,7 @@ def run_cases(provider_name, cases, condition, run_id, timeout, collect_only):
             title, body = read_case(case_id, condition)
             branch = f"case-{case_id}-{condition}-{run_id}"
             run(["git", "push", "--force", f"https://github.com/{repo}.git", f"{head_sha}:refs/heads/{branch}"])
+            opened_at = now_utc()
             pr_url = run([
                 "gh", "pr", "create",
                 "--repo", repo,
@@ -156,7 +157,7 @@ def run_cases(provider_name, cases, condition, run_id, timeout, collect_only):
                 "pr_url": pr_url,
                 "base_sha": base_sha,
                 "head_sha": head_sha,
-                "opened_at": now_utc(),
+                "opened_at": opened_at,
             }
             state[key] = entry
             save_json(STATE_PATH, state)
@@ -167,7 +168,7 @@ def run_cases(provider_name, cases, condition, run_id, timeout, collect_only):
         deadline = time.time() + (0 if collect_only else timeout)
         while True:
             reviews, inline, comments, checks = fetch_bot_feedback(
-                repo, entry["pr_number"], entry["head_sha"], bot_login, check_app
+                repo, entry["pr_number"], entry["head_sha"], bot_login, check_app, entry.get("opened_at", "")
             )
             status = check_status(
                 reviews, inline, comments, checks, check_app, timed_out=(time.time() >= deadline)
@@ -176,7 +177,7 @@ def run_cases(provider_name, cases, condition, run_id, timeout, collect_only):
                 if status in ("completed", "quiet") and not collect_only:
                     time.sleep(10)
                     reviews, inline, comments, checks = fetch_bot_feedback(
-                        repo, entry["pr_number"], entry["head_sha"], bot_login, check_app
+                        repo, entry["pr_number"], entry["head_sha"], bot_login, check_app, entry.get("opened_at", "")
                     )
                 break
             time.sleep(15)

@@ -96,7 +96,10 @@ def check_status(reviews, inline, comments, checks, check_app, timed_out):
     if check_app:
         check_done = bool(checks) and all(c.get("status") == "completed" for c in checks)
         if check_done:
-            return "completed" if has_feedback else "quiet"
+            if has_feedback:
+                return "completed"
+            all_ok = all(c.get("conclusion") == "success" for c in checks)
+            return "quiet" if all_ok else "failed"
         return "timeout" if timed_out else "pending"
 
     if reviews or inline:
@@ -115,7 +118,9 @@ def run_cases(provider_name, cases, condition, run_id, timeout, collect_only):
 
     for case_id in cases:
         key = f"{provider_name}_{case_id}_{condition}_{run_id}"
-        out_file = RAW_DIR / f"{key}.json"
+        out_file = (RAW_DIR / f"{key}.json").resolve()
+        if out_file.parent != RAW_DIR.resolve():
+            raise ValueError(f"Invalid artifact path for {key}")
 
         if not collect_only and out_file.exists():
             prev = load_json(out_file, {})
@@ -165,19 +170,23 @@ def run_cases(provider_name, cases, condition, run_id, timeout, collect_only):
         else:
             print(f"resuming {key} -> {entry['pr_url']}")
 
+        poll_repo = entry["repo"]
         deadline = time.time() + (0 if collect_only else timeout)
         while True:
             reviews, inline, comments, checks = fetch_bot_feedback(
-                repo, entry["pr_number"], entry["head_sha"], bot_login, check_app, entry.get("opened_at", "")
+                poll_repo, entry["pr_number"], entry["head_sha"], bot_login, check_app, entry.get("opened_at", "")
             )
             status = check_status(
                 reviews, inline, comments, checks, check_app, timed_out=(time.time() >= deadline)
             )
             if status != "pending":
-                if status in ("completed", "quiet") and not collect_only:
+                if status in ("completed", "quiet", "failed") and not collect_only:
                     time.sleep(10)
                     reviews, inline, comments, checks = fetch_bot_feedback(
-                        repo, entry["pr_number"], entry["head_sha"], bot_login, check_app, entry.get("opened_at", "")
+                        poll_repo, entry["pr_number"], entry["head_sha"], bot_login, check_app, entry.get("opened_at", "")
+                    )
+                    status = check_status(
+                        reviews, inline, comments, checks, check_app, timed_out=True
                     )
                 break
             time.sleep(15)

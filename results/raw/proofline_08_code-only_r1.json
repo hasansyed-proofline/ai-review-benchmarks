@@ -1,0 +1,27 @@
+{
+  "provider": "proofline",
+  "case_id": "08",
+  "condition": "code-only",
+  "run_id": "r1",
+  "repo": "hasansyed-proofline/bench-proofline",
+  "pr_number": 9,
+  "pr_url": "https://github.com/hasansyed-proofline/bench-proofline/pull/9",
+  "base_sha": "9b5ac64ab0d3ba414c5edec1e64fcdf8b3b19a1a",
+  "head_sha": "f869d7c350ead2a39bbb37b1e5b24aa4cbaa790a",
+  "opened_at": "2026-11-21T13:53:40Z",
+  "bot": "prooflinedev[bot]",
+  "trigger": "auto-pr",
+  "notes": "Free 1-month org tier, default settings, installed only on bench-proofline",
+  "collected_at": "2026-11-21T13:54:30Z",
+  "status": "quiet",
+  "check_runs": [
+    {
+      "name": "Proofline",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "reviews": [],
+  "inline_comments": [],
+  "issue_comments": []
+}

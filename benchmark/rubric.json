@@ -1,0 +1,53 @@
+{
+  "frozen_before_runs": true,
+  "cases": {
+    "01": {
+      "category": "code-only-bug",
+      "title": "Page report history by scheduled time",
+      "expected_code_only": "Cursor uses only `scheduled_at < ?`, skipping rows that share the same `scheduled_at` timestamp across a page boundary.",
+      "expected_with_snapshot": null
+    },
+    "02": {
+      "category": "code-only-bug",
+      "title": "Stream the report export",
+      "expected_code_only": "Replacing `csv.writer` with `','.join(map(str, row))` breaks CSV escaping when `report` contains commas, quotes, or newlines.",
+      "expected_with_snapshot": null
+    },
+    "03": {
+      "category": "code-only-bug",
+      "title": "Batch queued deliveries",
+      "expected_code_only": "`range(0, len(jobs) - batch_size + 1, batch_size)` drops trailing jobs whenever `len(jobs)` is not an exact multiple of 20 (including queues with < 20 jobs).",
+      "expected_with_snapshot": null
+    },
+    "04": {
+      "category": "deployment-dependent",
+      "title": "Retire the legacy delivery column",
+      "expected_code_only": "Dropping `legacy_format` online breaks still-running workers that select `legacy_format`; needs active worker query check.",
+      "expected_with_snapshot": "Breaks site `elm` (`workers-17`, 2 replicas, still runs `SELECT id, legacy_format ...`, observation `inventory-204`). Site `cedar` is safe."
+    },
+    "05": {
+      "category": "deployment-dependent",
+      "title": "Increase export batch size",
+      "expected_code_only": "Raising `EXPORT_BATCH_SIZE` from 25 to 50 can cause rejected requests if a receiver enforces a lower row limit; needs receiver config check.",
+      "expected_with_snapshot": "Breaks site `cedar` (`archive-11` has `max_rows_per_request: 40`, `ready_rows: 70`, observation `archive-318`). Site `elm` (limit 100) is safe."
+    },
+    "06": {
+      "category": "deployment-dependent",
+      "title": "Use the new delivery queue",
+      "expected_code_only": "Changing `DELIVERY_QUEUE` to `report-dispatch` strands new jobs unless workers already subscribe to `report-dispatch`.",
+      "expected_with_snapshot": "Breaks site `elm` (only subscribes to `reports`, stranding 8 due jobs, observation `subscriptions-416`). Site `cedar` is safe."
+    },
+    "07": {
+      "category": "clean-control",
+      "title": "Index pending deliveries",
+      "expected_code_only": "Valid partial index matching `deliver_due` on SQLite 3.35+. Quiet review / approval expected.",
+      "expected_with_snapshot": null
+    },
+    "08": {
+      "category": "clean-control",
+      "title": "Include a total in the activity summary",
+      "expected_code_only": "Safe additive `total` key; SQLite `count()` returns 0 on empty tables. Quiet review / approval expected.",
+      "expected_with_snapshot": null
+    }
+  }
+}

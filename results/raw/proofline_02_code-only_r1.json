@@ -1,0 +1,143 @@
+{
+  "provider": "proofline",
+  "case_id": "02",
+  "condition": "code-only",
+  "run_id": "r1",
+  "repo": "hasansyed-proofline/bench-proofline",
+  "pr_number": 3,
+  "pr_url": "https://github.com/hasansyed-proofline/bench-proofline/pull/3",
+  "base_sha": "9b5ac64ab0d3ba414c5edec1e64fcdf8b3b19a1a",
+  "head_sha": "9d551b83dc3a9b0c30868859ea97feef934e7b9b",
+  "opened_at": "2026-11-21T13:45:30Z",
+  "bot": "prooflinedev[bot]",
+  "trigger": "auto-pr",
+  "notes": "Free 1-month org tier, default settings, installed only on bench-proofline",
+  "collected_at": "2026-11-21T13:46:38Z",
+  "status": "completed",
+  "check_runs": [
+    {
+      "name": "Proofline",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "reviews": [
+    {
+      "id": 6005629237,
+      "node_id": "PRR_kwDOV2ojus8AAAABZfahNQ",
+      "user": {
+        "login": "prooflinedev[bot]",
+        "id": 318282779,
+        "node_id": "BOT_kgDOEvicGw",
+        "avatar_url": "https://avatars.githubusercontent.com/in/4636559?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/prooflinedev%5Bbot%5D",
+        "html_url": "https://github.com/apps/prooflinedev",
+        "followers_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/followers",
+        "following_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/following{/other_user}",
+        "gists_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/subscriptions",
+        "organizations_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/orgs",
+        "repos_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/repos",
+        "events_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/received_events",
+        "type": "Bot",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "<!-- proofline:review-comment -->\n<!-- proofline:review-publication:2cb1bb45-ba56-479b-bd3d-f0fd9ef5bd18 -->\n**Proofline** has 1 new finding to review.\n\n[View full review in Proofline](https://proofline.sh/orgs/by-id/01a1fe4f-49f1-7732-81cb-f1d6ad806605/reviews/01a1fe5a-e753-7463-898e-bdc2b05a0758)\n\n<!-- proofline:published-findings -->\n<!-- proofline:published-finding-series=01a1fe5b-8789-7748-9b5a-36bb0207d605 -->\n<!-- proofline:published-thread-series=01a1fe5b-8789-7748-9b5a-36bb0207d605 -->\n<!-- /proofline:published-findings -->\n<!-- proofline:published-code=01a1fe5b-878d-7090-8b0a-c8c1cf3baf01 -->\n<!-- proofline:published-code-thread=01a1fe5b-878d-7090-8b0a-c8c1cf3baf01 -->",
+      "state": "COMMENTED",
+      "html_url": "https://github.com/hasansyed-proofline/bench-proofline/pull/3#pullrequestreview-6005629237",
+      "pull_request_url": "https://api.github.com/repos/hasansyed-proofline/bench-proofline/pulls/3",
+      "author_association": "NONE",
+      "is_copilot_code_review": false,
+      "copilot_code_review_effort": null,
+      "_links": {
+        "html": {
+          "href": "https://github.com/hasansyed-proofline/bench-proofline/pull/3#pullrequestreview-6005629237"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/hasansyed-proofline/bench-proofline/pulls/3"
+        }
+      },
+      "submitted_at": "2026-11-21T13:46:16Z",
+      "commit_id": "9d551b83dc3a9b0c30868859ea97feef934e7b9b"
+    }
+  ],
+  "inline_comments": [
+    {
+      "url": "https://api.github.com/repos/hasansyed-proofline/bench-proofline/pulls/comments/4652824967",
+      "pull_request_review_id": 6005629237,
+      "id": 4652824967,
+      "node_id": "PRRC_kwDOV2ojus8AAAABFVR5hw",
+      "diff_hunk": "@@ -51,11 +50,10 @@ def history(db, limit, cursor=None):\n \n \n def write_export(db, output):",
+      "path": "reports.py",
+      "commit_id": "9d551b83dc3a9b0c30868859ea97feef934e7b9b",
+      "original_commit_id": "9d551b83dc3a9b0c30868859ea97feef934e7b9b",
+      "user": {
+        "login": "prooflinedev[bot]",
+        "id": 318282779,
+        "node_id": "BOT_kgDOEvicGw",
+        "avatar_url": "https://avatars.githubusercontent.com/in/4636559?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/prooflinedev%5Bbot%5D",
+        "html_url": "https://github.com/apps/prooflinedev",
+        "followers_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/followers",
+        "following_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/following{/other_user}",
+        "gists_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/subscriptions",
+        "organizations_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/orgs",
+        "repos_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/repos",
+        "events_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/prooflinedev%5Bbot%5D/received_events",
+        "type": "Bot",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "<!-- proofline:finding-series=01a1fe5b-8789-7748-9b5a-36bb0207d605 -->\n**Warning** \u00b7 CSV export splits report names into extra fields or records\n\n`write_export` joins raw fields without CSV quoting, so commas and newlines in report names become delimiters.\n\nCSV readers can see extra columns or records instead of one three-field record per delivery.\n\nKeep streaming the cursor, but write each row with `csv.writer`.\n\n[View finding in Proofline](https://proofline.sh/orgs/by-id/01a1fe4f-49f1-7732-81cb-f1d6ad806605/reviews/01a1fe5a-e753-7463-898e-bdc2b05a0758/findings/01a1fe5b-878d-7090-8b0a-c8c1cf3baf01)",
+      "created_at": "2026-11-21T13:46:16Z",
+      "updated_at": "2026-11-21T13:46:17Z",
+      "html_url": "https://github.com/hasansyed-proofline/bench-proofline/pull/3#discussion_r4652824967",
+      "pull_request_url": "https://api.github.com/repos/hasansyed-proofline/bench-proofline/pulls/3",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/hasansyed-proofline/bench-proofline/pulls/comments/4652824967"
+        },
+        "html": {
+          "href": "https://github.com/hasansyed-proofline/bench-proofline/pull/3#discussion_r4652824967"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/hasansyed-proofline/bench-proofline/pulls/3"
+        }
+      },
+      "reactions": {
+        "url": "https://api.github.com/repos/hasansyed-proofline/bench-proofline/pulls/comments/4652824967/reactions",
+        "total_count": 0,
+        "+1": 0,
+        "-1": 0,
+        "laugh": 0,
+        "hooray": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0
+      },
+      "start_line": null,
+      "original_start_line": null,
+      "start_side": null,
+      "line": 52,
+      "original_line": 52,
+      "side": "RIGHT",
+      "author_association": "NONE",
+      "original_position": 10,
+      "position": 10,
+      "subject_type": "line",
+      "is_copilot_code_review": false,
+      "copilot_code_review_severity": null,
+      "copilot_code_review_sources": []
+    }
+  ],
+  "issue_comments": []
+}

@@ -1,0 +1,16 @@
+{
+  "proofline": {
+    "repo": "hasansyed-proofline/bench-proofline",
+    "bot": "prooflinedev[bot]",
+    "check_app": "prooflinedev",
+    "trigger": "auto-pr",
+    "notes": "Free 1-month org tier, default settings, installed only on bench-proofline"
+  },
+  "coderabbit": {
+    "repo": "hasansyed-proofline/bench-coderabbit",
+    "bot": "coderabbitai[bot]",
+    "check_app": "coderabbitai",
+    "trigger": "auto-pr",
+    "notes": "14-day free org trial, default settings, installed only on bench-coderabbit"
+  }
+}
